@@ -197,9 +197,14 @@ RCT_EXPORT_METHOD(unlockAllOrientations)
 #if DEBUG
     NSLog(@"Unlock All Orientations");
 #endif
-    [Orientation setOrientation:UIInterfaceOrientationMaskAll];
-    
-    [UIViewController attemptRotationToDeviceOrientation];
+
+    dispatch_async( dispatch_get_main_queue(), ^{
+
+        [Orientation setOrientation:UIInterfaceOrientationMaskAll];
+        
+        [UIViewController attemptRotationToDeviceOrientation];
+        
+    });
 }
 
 - (NSDictionary *)constantsToExport
